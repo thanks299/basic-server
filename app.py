@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Function to get the location from the IP address
 def get_location(ip):
-    response = requests.get(f"https://ipapi.co/{ip}/json/")
+    response = requests.get(f"https://ipapi.co/54.152.54.130 /json/")
     data = response.json()
     city = data.get('city', 'Unknown')
     return city
