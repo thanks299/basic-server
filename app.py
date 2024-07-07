@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # Function to get the location from the IP address
 def get_location(ip):
-    response = requests.get(f"https://ipapi.co/54.152.54.130 /json/")
+    response = requests.get(f"https://ipapi.co/54.152.54.130/json/")
     data = response.json()
     city = data.get('city', 'Unknown')
     return city
@@ -49,14 +49,12 @@ def hello():
     visitor_name = request.args.get('visitor_name', 'Guest')
     
     # Get the location based on the IP address
-    location = get_location(client_ip)
-    
+    location = get_location(client_ip)    
     # Get the temperature for the location
     temperature = get_temperature(location)
     
     # Create the greeting message
     greeting = f"Hello, {visitor_name}!, the temperature is {temperature} degrees Celsius in {location}"
-    
     # Create the response object
     response = {
         "client_ip": client_ip,
