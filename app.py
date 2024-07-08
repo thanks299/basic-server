@@ -64,3 +64,8 @@ def hello():
     
     # Return the response as JSON
     return jsonify(response)
+
+# Runner and Debugger
+if __name__ == "__main__":       
+    app.run(debug=True)
+
