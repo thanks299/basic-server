@@ -37,7 +37,7 @@ def get_temperature(city):
     return temperature
 
 # API endpoint to greet the visitor and provide weather information
-@app.route('/api/hello', methods=['GET'])
+B@app.route('/api/hello', methods=['GET'])
 def hello():
     # Determine the client's IP address
     if "X-Forwarded-For" in request.headers:
@@ -65,6 +65,5 @@ def hello():
     # Return the response as JSON
     return jsonify(response)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':  app.run(debug=True)
 
