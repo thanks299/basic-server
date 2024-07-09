@@ -14,7 +14,7 @@ Flask==3.0.3
 geolocation-python==0.2.2
 greenlet==3.0.3
 gunicorn==22.0.0
-gyp==0.1
+#gyp==0.1
 httplib2==0.20.2
 idna==3.7
 importlib-metadata==4.6.4
