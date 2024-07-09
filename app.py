@@ -5,14 +5,12 @@ import requests
 
 app = Flask(__name__)
 
-
 # Function to get the location from the IP address
 def get_location(ip):
     response = requests.get(f"https://ipapi.co/{ip}/json/")
     data = response.json()
     city = data.get('city', 'Unknown')
     return city
-
 
 # Function to get the temperature for a given city
 def get_temperature(city):
@@ -37,7 +35,6 @@ def get_temperature(city):
 
     temperature = data.get("current").get("temp_c")
     return temperature
-
 
 # API endpoint to greet the visitor and provide weather information
 @app.route('/api/hello', methods=['GET'])
@@ -68,10 +65,6 @@ def hello():
     # Return the response as JSON
     return jsonify(response)
 
-
-# Adapt the Flask app to Vercel's serverless environment
-def handler(event, context):
-        return app(event, context)
 
 if __name__ == '__main__':
     app.run(debug=True)
