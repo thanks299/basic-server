@@ -1,7 +1,6 @@
-#!/usr/bin/python3
-
 from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -14,22 +13,19 @@ def get_location(ip):
 
 # Function to get the temperature for a given city
 def get_temperature(city):
-    # Replace with your weather API key
-    temp_key = "66e427f591ca401fbf1224257240407"
+    # Get the weather API key from environment variables
+    temp_key = os.getenv('WEATHER_API_KEY')
 
     # Example API call to get current weather
     response = requests.get(f'https://api.weatherapi.com/v1/current.json?key={temp_key}&q={city}')
 
     # Check if the response is successful
     if response.status_code != 200:
-        # Log the error or handle it accordingly
         print(f"Error: Received response with status code {response.status_code}")
         return None
 
     data = response.json()
-    # Check if the 'current' key exists in the data
     if "current" not in data:
-        # Log the error or handle it accordingly
         print("Error: 'current' key not found in response data")
         return None
 
@@ -39,32 +35,28 @@ def get_temperature(city):
 # API endpoint to greet the visitor and provide weather information
 @app.route('/api/hello', methods=['GET'])
 def hello():
-    # Determine the client's IP address
     if "X-Forwarded-For" in request.headers:
         client_ip = request.headers.getlist('X-Forwarded-For')[0]
     else:
         client_ip = request.remote_addr
 
-    # Get visitor's name from query parameters
     visitor_name = request.args.get('visitor_name', 'Guest')
-
-    # Get the location based on the IP address
     location = get_location(client_ip)
-    # Get the temperature for the location
     temperature = get_temperature(location)
 
-    # Create the greeting message
     greeting = f"Hello, {visitor_name}!, the temperature is {temperature} degrees Celsius in {location}"
-    # Create the response object
     response = {
         "client_ip": client_ip,
         "location": location,
         "greeting": greeting
     }
 
-    # Return the response as JSON
     return jsonify(response)
 
+# Adapt the Flask app to Vercel's serverless environment
+def handler(event, context):
+    return app(event, context)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
