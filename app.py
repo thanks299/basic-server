@@ -14,6 +14,7 @@ def get_location(ip):
 # Function to get the temperature for a given city
 def get_temperature(city):
     # Get the weather API key from environment variables
+    WEATHER_API_KEY = '66e427f591ca401fbf1224257240407'
     temp_key = os.getenv('WEATHER_API_KEY')
 
     # Example API call to get current weather
